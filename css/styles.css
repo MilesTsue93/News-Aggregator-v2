@@ -1,0 +1,16 @@
+body {
+    background-image: url(/images/pexels-pixabay-159652.jpg);
+    background-repeat: no-repeat;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+}
+
+hr {
+    width: 100px;
+    height: 7px;
+    color: brown;
+}
