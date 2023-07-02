@@ -1,5 +1,5 @@
 body, header {
-    background-image: url(/images/pexels-pixabay-159652.jpg);
+    background-image: url(./static/pexels-pixabay-159652.jpg);
     background-repeat: no-repeat;
     font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
