@@ -1,25 +1,12 @@
 from flask import Flask, render_template, redirect, request
-import json
-import requests
+from helper import read_config, execute_nyt#, execute_bloom
 
-# to easily generate an api call response
-#  - may not need actually, might be more cumbersome!
-def execute_nyt():
-    requestUrl = "https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=6CIcTlf5BAmG5u4ttYxeOGAFlAWJhXFr"
-    requestHeaders = {
-    "Accept": "application/json"
-  }
-    
-    response = requests.get(requestUrl, headers=requestHeaders)
-    
-    # convert to json format
-    response_dict = json.loads(response.text)
 
-    print(response_dict["results"][0]["url"])
-    return response_dict["results"][0]["url"]
-
-# define flask application
+# define flask app
+# and configure
 app = Flask(__name__)
+config = read_config()
+API_KEY = config["FTPSettings"]["api_key"]
 
 
 @app.route('/')
@@ -44,10 +31,14 @@ def get_news_source(news):
 
     # TODO: maybe define multiple functions above to
     # access these APIs, which are all different.
+    # Research Atlantic + Bloomberg apis
+
+    # link to docs on bloomberg apis: 
+    # https://bloomberg.github.io/blpapi-docs/python/3.20/
 
     nyt_response = execute_nyt()
     atlantic_api_call = '#'
-    sf_api_call = '#'
+    bloomberg = '#'
     return redirect(nyt_response)
 
 if __name__ == '__main__':
