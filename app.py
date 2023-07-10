@@ -1,12 +1,10 @@
 from flask import Flask, render_template, redirect, request
-from helper import read_config, execute_nyt#, execute_bloom
+from helpers.helper import execute_nyt#, execute_bloom
 
 
 # define flask app
 # and configure
 app = Flask(__name__)
-config = read_config()
-API_KEY = config["FTPSettings"]["api_key"]
 
 
 @app.route('/')
