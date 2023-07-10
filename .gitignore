@@ -4,3 +4,7 @@
 # secret stuff
 generate_config.py
 configurations.ini
+
+# pycache
+helpers/__pycache__/
+__pycache__
