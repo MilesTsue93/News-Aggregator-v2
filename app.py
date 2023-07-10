@@ -1,16 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, request
+import json
 import requests
 
 # to easily generate an api call response
+#  - may not need actually, might be more cumbersome!
 def execute_nyt():
     requestUrl = "https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=6CIcTlf5BAmG5u4ttYxeOGAFlAWJhXFr"
     requestHeaders = {
     "Accept": "application/json"
   }
+    
     response = requests.get(requestUrl, headers=requestHeaders)
-    return response.text
-  
+    
+    # convert to json format
+    response_dict = json.loads(response.text)
 
+    print(response_dict["results"][0]["url"])
+    return response_dict["results"][0]["url"]
+
+# define flask application
 app = Flask(__name__)
 
 
@@ -20,7 +28,7 @@ def index():
     return render_template('index.html', news_source=news_sources_api_calls)
 
 
-@app.route('/news_source/<news>')
+@app.route('/news_source/<news>', methods=["GET"])
 def get_news_source(news):
 
     # TODO: This line of code should instead direct user
@@ -31,14 +39,16 @@ def get_news_source(news):
     # Will need a web scraping tool or something to get this.
     # for now, will allow user three options. For MVP...
 
-    # https://developer.nytimes.com/apis - ny times api page
+    # https://developer.nytimes.com/apis - NYTimes api page
     
 
-    
+    # TODO: maybe define multiple functions above to
+    # access these APIs, which are all different.
+
     nyt_response = execute_nyt()
     atlantic_api_call = '#'
     sf_api_call = '#'
-    return nyt_response["results"]  # this doesn't work yet. Not subscriptable.
+    return redirect(nyt_response)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
