@@ -10,7 +10,7 @@ def read_config():
 
 # defining secret api key
 config = read_config()
-API_KEY = config["FTPSettings"]["newsapi_key"]
+API_KEY = config["FTPSettings"]["api_key"]
 
 # gets top article of macrumors.com
 def execute_apple():

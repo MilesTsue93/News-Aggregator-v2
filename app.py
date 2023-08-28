@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request
 from helpers.helper import execute_apple, execute_techcrunch
+import random
 
 
 # define flask app
@@ -30,10 +31,10 @@ def get_news_source(news):
     # access these APIs, which are all different.
     # Research Atlantic + Bloomberg apis ~~DONE~~
 
-    apple_api_call = execute_apple()
-    atlantic_api_call = execute_techcrunch()
+    apple = execute_apple()
+    techcrunch = execute_techcrunch()
     # bloomberg = execute_bloom()
-    return redirect(apple_api_call)
+    return redirect(news)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
