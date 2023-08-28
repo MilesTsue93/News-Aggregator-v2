@@ -10,12 +10,11 @@ def read_config():
 
 # defining secret api key
 config = read_config()
-API_KEY = config["FTPSettings"]["api_key"]
+API_KEY = config["FTPSettings"]["newsapi_key"]
 
-# to easily generate an api call response
-#  - may not need actually, might be more cumbersome!
-def execute_nyt():
-    requestUrl = f'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={API_KEY}'
+# gets top article of macrumors.com
+def execute_apple():
+    requestUrl = f'https://newsapi.org/v2/everything?domains=macrumors.com&apiKey={API_KEY}'
     requestHeaders = {
     'Accept': 'application/json'
     }
@@ -24,17 +23,19 @@ def execute_nyt():
     
     # convert to json format
     response_dict = json.loads(response.text)
-    return response_dict["results"][0]["url"]
+    return response_dict["articles"][0]["url"]
 
 
-    #############
-# TODO: write bloomberg function...
-# def execute_bloom():
-  #  requestUrl = ''
-  ##############
+# gets top article of techcrunch.com
+def execute_techcrunch():
+    requestUrl = f'https://newsapi.org/v2/everything?domains=techcrunch.com&apiKey={API_KEY}'
+    requestHeaders = {
+    'Accept': 'application/json'
+    }
 
+    response = requests.get(requestUrl, headers=requestHeaders)
 
-  # TODO: write a third function, or
-  # better yet, a more dynamic function 
-  # which involves some web scraping????
+    # convert to json format
+    response_dict = json.loads(response.text)
+    return response_dict["articles"][0]["url"]
 
