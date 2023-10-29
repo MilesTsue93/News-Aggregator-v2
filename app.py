@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request
 from dotenv import load_dotenv
 import os
+from jinja2 import Template
 
 from serpapi import GoogleSearch
 
@@ -31,6 +32,7 @@ def execute_nyt():
 def execute_google_news():
 
     load_api_keys()
+
     params = {
     "q": "trump",
     "hl": "en",
@@ -41,8 +43,8 @@ def execute_google_news():
     search = GoogleSearch(params)
     results = search.get_dict()
     top_stories = results["top_stories"]
-    print(top_stories)
-    return top_stories[0]
+    print(top_stories[0]["link"])
+    return top_stories[0]["link"]
 
 # define flask application
 app = Flask(__name__)
@@ -76,12 +78,12 @@ def get_news_source(news):
     google_news = execute_google_news()
     sf_api_call = '#'
 
-    sources.append(nyt_response)
-    sources.append(google_news)
-    sources.append(sf_api_call)
-
-
-    return news
+    if news == "The New York Times":
+        return redirect(nyt_response)
+    elif news == "Google News":
+        return redirect(google_news)
+    else:
+        return news
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
