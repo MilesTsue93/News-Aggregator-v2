@@ -50,7 +50,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    news_sources_api_calls = ['The New York Times', 'Google News', 'The San Francisco Chronicle']
+    news_sources_api_calls = ['The New York Times', 'The Atlantic', 'The San Francisco Chronicle']
     return render_template('index.html', news_source=news_sources_api_calls)
 
 
@@ -62,14 +62,14 @@ def get_news_source(news):
     # perhaps most recent article
 
     # for now, the user cannot choose their news source dynamically.
-    # Will need a web scraping tool or something to get this.
-    # for now, will allow user three options. For MVP...
-
-    # https://developer.nytimes.com/apis - NYTimes api page
+    # edit: will use a different api which gets various
+    # news sources based on keyword search by user - Bingo
+    # Use another page on app which allows THIS
     
 
     # TODO: maybe define multiple functions above to
     # access these APIs, which are all different.
+    # Research Atlantic + Bloomberg apis ~~DONE~~
 
     sources = []
     nyt_response = execute_nyt()
