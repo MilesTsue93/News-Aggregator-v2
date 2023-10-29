@@ -50,7 +50,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    news_sources_api_calls = ['The New York Times', 'The Atlantic', 'The San Francisco Chronicle']
+    news_sources_api_calls = ['The New York Times', 'Google News', 'The San Francisco Chronicle']
     return render_template('index.html', news_source=news_sources_api_calls)
 
 
@@ -81,7 +81,7 @@ def get_news_source(news):
     sources.append(sf_api_call)
 
 
-    return redirect(nyt_response)
+    return news
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
