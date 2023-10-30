@@ -43,8 +43,8 @@ def execute_google_news():
     search = GoogleSearch(params)
     results = search.get_dict()
     top_stories = results["top_stories"]
-    print(top_stories[0]["link"])
-    return top_stories[0]["link"]
+    #print(top_stories[1]["link"])
+    return top_stories[1]["link"]
 
 # define flask application
 app = Flask(__name__)
@@ -73,7 +73,6 @@ def get_news_source(news):
     # access these APIs, which are all different.
     # Research Atlantic + Bloomberg apis ~~DONE~~
 
-    sources = []
     nyt_response = execute_nyt()
     google_news = execute_google_news()
     sf_api_call = '#'
@@ -84,6 +83,14 @@ def get_news_source(news):
         return redirect(google_news)
     else:
         return news
+    
+@app.route('/contact.html', methods=["GET", "POST"])
+
+def contact():
+
+    if request.method == "POST":
+
+        ...
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

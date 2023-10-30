@@ -1,12 +1,20 @@
 body, header {
     background-image: url("pexels-pixabay-159652.jpg");
     background-repeat: no-repeat;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 25px;
-    padding: 20px;
 }
+
 h1 {
-    text-align: center;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 20px;
+    text-align: justify; 
+    text-underline-offset: unset ;
+}
+
+ul {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-large;
+    padding: 5%;
 }
 
 hr {
