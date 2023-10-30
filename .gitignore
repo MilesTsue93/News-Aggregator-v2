@@ -1,11 +1,5 @@
 # .DS_Store
 .DS_Store
 
-<<<<<<< HEAD
 # api keys
 .env
-=======
-# secret stuff
-generate_config.py
-configurations.ini
->>>>>>> 0e8f99d65eb1231402ea00c7118f04bf6046b6e0
