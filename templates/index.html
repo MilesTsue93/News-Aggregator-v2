@@ -11,13 +11,19 @@
   </head>
 
   <body>
-    <h1>Your News. All In One Place</h1>
+    <h1 class="home">Your News. All In One Place</h1>
     <ul>
       {% for news in news_source %}
-        <li><a href="/news_source/{{ news }}">{{ news }}</a></li>
+        <a href="/news_source/{{ news }}">{{ news }}</a><br>
       {% endfor %}
     </ul>
 
-    
+
   </body>
+
+  <footer class="maintext">
+    <a class="nav-link" href="/contact.html">Contact</a></li>
+    <br>
+    link to repository containing code <a href="https://github.com/MilesTsue93/News-Aggregator"><br>github repository link</a>
+  </footer>
 </html>

@@ -4,9 +4,9 @@
 ## MVP
 
 * Three top sources from major news articles collected via their APIs
-* home page
-* about page
-* 
+* home
+* about
+* contact
 
 
 

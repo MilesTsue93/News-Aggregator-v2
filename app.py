@@ -61,7 +61,7 @@ def get_news_source(news):
 
     # TODO: This line of code should instead direct user
     # to the respective news webpage
-    # perhaps most recent article
+    # perhaps most recent article ~~DONE~~
 
     # for now, the user cannot choose their news source dynamically.
     # edit: will use a different api which gets various
@@ -87,6 +87,9 @@ def get_news_source(news):
 @app.route('/contact.html', methods=["GET", "POST"])
 
 def contact():
+
+    if request.method == "GET":
+        return render_template("contact.html")
 
     if request.method == "POST":
 

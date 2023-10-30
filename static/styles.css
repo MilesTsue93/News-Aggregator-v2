@@ -1,9 +1,10 @@
-body, header {
+body {
     background-image: url("pexels-pixabay-159652.jpg");
-    background-repeat: no-repeat;
+    
 }
 
-h1 {
+.contact {
+    flood-color: antiquewhite;
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
     padding: 20px;
@@ -11,10 +12,19 @@ h1 {
     text-underline-offset: unset ;
 }
 
-ul {
+h1 {
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px;
+    text-align: justify; 
+    text-underline-offset: unset ;
+}
+
+.maintext {
     font-family: 'Courier New', Courier, monospace;
     font-size: x-large;
     padding: 5%;
+    align-items: center;
 }
 
 hr {
