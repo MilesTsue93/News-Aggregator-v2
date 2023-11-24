@@ -2,11 +2,14 @@ from flask import Flask, render_template, redirect, request
 from dotenv import load_dotenv
 import os
 from jinja2 import Template
-
+import sqlalchemy
+from flask_mail import Mail, Message 
 from serpapi import GoogleSearch
+from config import mail_username, mail_password
 
 import json
 import requests
+
 
 # for api keys
 def load_api_keys():
@@ -49,6 +52,18 @@ def execute_google_news():
 # define flask application
 app = Flask(__name__)
 
+# configurations
+app.config["MAIL_SERVER"] = "smtp.office365.com"
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+app.config["MAIL_USERNAME"] = mail_username
+app.config["MAIL_PASSWORD"] = mail_password
+
+
+mail = Mail(app)
+#db = sqlalchemy(app)
+#admin = Admin(app)
 
 @app.route('/')
 def index():
@@ -87,13 +102,22 @@ def get_news_source(news):
 @app.route('/contact.html', methods=["GET", "POST"])
 
 def contact():
-
     if request.method == "GET":
         return render_template("contact.html")
 
     if request.method == "POST":
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        country = request.form.get("country")
+        message = request.form.get("message")
 
-        ...
+        msg = Message(
+            subject=f"Mail from{firstname} {lastname}", body=f"from: {country}\n{firstname} writes:\n\n{message}",
+            sender=mail_username, recipients=[mail_username]
+        )
+        mail.send(msg)
+        return render_template("contact.html", success=True)
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

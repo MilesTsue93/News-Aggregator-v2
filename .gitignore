@@ -1,5 +1,7 @@
-# .DS_Store
+# miscellaneous
 .DS_Store
+__pycache__
 
-# api keys
+# secrets
 .env
+config.py
