@@ -1,16 +1,7 @@
 import configparser, requests, json
+from config import API_KEY
 
-
-# Method to read config file settings
-# this code also taken from url: https://www.codeproject.com/Articles/5319621/Configuration-Files-in-Python
-def read_config():
-    config = configparser.ConfigParser()
-    config.read('configurations.ini')
-    return config
-
-# defining secret api key
-config = read_config()
-API_KEY = config["FTPSettings"]["api_key"]
+apple_KEY = API_KEY
 
 # gets top article of macrumors.com
 def execute_apple():

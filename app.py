@@ -1,11 +1,12 @@
 from flask import Flask, render_template, redirect, request
+from helpers import helper
 from dotenv import load_dotenv
 import os
 from jinja2 import Template
 import sqlalchemy
 from flask_mail import Mail, Message 
 from serpapi import GoogleSearch
-from config import mail_username, mail_password
+from config import mail_username, mail_password, API_KEY
 
 import json
 import requests
@@ -67,7 +68,7 @@ mail = Mail(app)
 
 @app.route('/')
 def index():
-    news_sources_api_calls = ['The New York Times', 'Google News', 'The San Francisco Chronicle']
+    news_sources_api_calls = ['The New York Times', 'Google News', 'Apple News']
     return render_template('index.html', news_source=news_sources_api_calls)
 
 
@@ -90,14 +91,14 @@ def get_news_source(news):
 
     nyt_response = execute_nyt()
     google_news = execute_google_news()
-    sf_api_call = '#'
+    apple = helper.execute_apple()
 
     if news == "The New York Times":
         return redirect(nyt_response)
     elif news == "Google News":
         return redirect(google_news)
     else:
-        return news
+        return redirect(apple)
     
 @app.route('/contact.html', methods=["GET", "POST"])
 
