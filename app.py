@@ -1,24 +1,23 @@
 from flask import Flask, render_template, redirect, request
-from helpers import helper
 from dotenv import load_dotenv
-import os
-from jinja2 import Template
-import sqlalchemy
 from flask_mail import Mail, Message 
 from serpapi import GoogleSearch
-from config import mail_username, mail_password, API_KEY
-
+from config import mail_username, mail_password
+import os
 import json
 import requests
-
 
 # for api keys
 def load_api_keys():
     load_dotenv()
 
-# to easily generate an api call response
-#  - may not need actually, might be more cumbersome!
+
 def execute_nyt():
+
+    '''
+    nytimes function returns top article
+    '''
+
     load_api_keys()
     requestUrl = f"https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={os.getenv('NYT_API_KEY')}"
     requestHeaders = {
@@ -33,12 +32,17 @@ def execute_nyt():
     print(response_dict["results"][0]["url"])
     return response_dict["results"][0]["url"]
 
+
 def execute_google_news():
 
+    ''' 
+    returns top google news article based on user query.
+    TODO: right now 'hamas' is hardcoded as the user query.
+    Find a way to dynamically allow user to query
+    '''
     load_api_keys()
-
     params = {
-    "q": "trump",
+    "q": "hamas",
     "hl": "en",
     "gl": "us",
     "api_key":  os.getenv("SERAPI_API_KEY")
@@ -47,61 +51,43 @@ def execute_google_news():
     search = GoogleSearch(params)
     results = search.get_dict()
     top_stories = results["top_stories"]
-    #print(top_stories[1]["link"])
     return top_stories[1]["link"]
 
 # define flask application
 app = Flask(__name__)
 
-# configurations
+# configurations for contact us page
 app.config["MAIL_SERVER"] = "smtp.office365.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 app.config["MAIL_USERNAME"] = mail_username
 app.config["MAIL_PASSWORD"] = mail_password
-
-
 mail = Mail(app)
-#db = sqlalchemy(app)
-#admin = Admin(app)
+
 
 @app.route('/')
 def index():
-    news_sources_api_calls = ['The New York Times', 'Google News', 'Apple News']
+    news_sources_api_calls = ['The New York Times', 'Google News']
     return render_template('index.html', news_source=news_sources_api_calls)
 
 
 @app.route('/news_source/<news>', methods=["GET"])
 def get_news_source(news):
 
-    # TODO: This line of code should instead direct user
-    # to the respective news webpage
-    # perhaps most recent article ~~DONE~~
-
-    # for now, the user cannot choose their news source dynamically.
-    # edit: will use a different api which gets various
-    # news sources based on keyword search by user - Bingo
-    # Use another page on app which allows THIS
-    
-
-    # TODO: maybe define multiple functions above to
-    # access these APIs, which are all different.
-    # Research Atlantic + Bloomberg apis ~~DONE~~
+    # TODO: Create a webscraping script to embed the news 
+    # articles scraped from the web into the app page!
 
     nyt_response = execute_nyt()
     google_news = execute_google_news()
-    apple = helper.execute_apple()
 
     if news == "The New York Times":
         return redirect(nyt_response)
     elif news == "Google News":
         return redirect(google_news)
-    else:
-        return redirect(apple)
-    
-@app.route('/contact.html', methods=["GET", "POST"])
 
+
+@app.route('/contact.html', methods=["GET", "POST"])
 def contact():
     if request.method == "GET":
         return render_template("contact.html")
