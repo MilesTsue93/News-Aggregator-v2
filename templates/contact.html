@@ -8,6 +8,15 @@
   <link href="../static/css/contact.css" rel="stylesheet"/>
 </head>
 <body>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages%}
+      {% for msg in messages %}
+        <p> {{msg}} </p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
   <h1 class="maintext">Send me your feedback</h1>
 
   <!-- This code taken from www.w3Schools.com: https://www.w3schools.com/howto/howto_css_contact_form.asp -->

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from dotenv import load_dotenv
 from flask_mail import Mail, Message 
 from serpapi import GoogleSearch
@@ -55,6 +55,7 @@ def execute_google_news():
 
 # define flask application
 app = Flask(__name__)
+app.secret_key="anystringhere"
 
 # configurations for contact us page
 app.config["MAIL_SERVER"] = "smtp.office365.com"
@@ -103,6 +104,8 @@ def contact():
             sender=mail_username, recipients=[mail_username]
         )
         mail.send(msg)
+        flash("Success! We will get back to you shortly. Have a great day!", "info")
+
         return render_template("contact.html", success=True)
     
 
