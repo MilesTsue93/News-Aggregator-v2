@@ -10,7 +10,7 @@
 <body>
 
   {% with messages = get_flashed_messages() %}
-    {% if messages%}
+    {% if messages %}
       {% for msg in messages %}
         <p> {{msg}} </p>
       {% endfor %}
@@ -34,10 +34,11 @@
         <option value="australia">Australia</option>
         <option value="canada">Canada</option>
         <option value="usa">USA</option>
+        <option value="myanmar">Myanmar</option>
       </select>
   
       <label for="message">Message</label>
-      <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+      <textarea id="message" name="message" placeholder="Send us a message..." style="height:200px"></textarea>
   
       <input type="submit" value="Submit">
   

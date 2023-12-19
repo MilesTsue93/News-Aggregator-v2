@@ -45,7 +45,7 @@ def execute_google_news():
     "q": "hamas",
     "hl": "en",
     "gl": "us",
-    "api_key":  os.getenv("SERAPI_API_KEY")
+    "api_key":  os.getenv("SERPAPI_API_KEY")
     }
 
     search = GoogleSearch(params)
@@ -110,4 +110,4 @@ def contact():
     
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
