@@ -1,3 +1,4 @@
 flask_mail
+serpapi
 gunicorn
 Flask
