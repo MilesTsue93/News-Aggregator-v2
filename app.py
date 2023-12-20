@@ -1,15 +1,10 @@
 from flask import Flask, render_template, redirect, request, flash
-from dotenv import load_dotenv
 from flask_mail import Mail, Message 
 from serpapi.google_search import GoogleSearch
 
 import os
 import json
 import requests
-
-# for api keys
-def load_api_keys():
-    load_dotenv()
 
 
 def execute_nyt():
