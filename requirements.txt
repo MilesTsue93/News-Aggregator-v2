@@ -1,4 +1,4 @@
 flask_mail
-serpapi
+serpapi.google_search
 gunicorn
 Flask
