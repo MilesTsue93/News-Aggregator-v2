@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, request, flash
 from dotenv import load_dotenv
 from flask_mail import Mail, Message 
-from serpapi import GoogleSearch
-from config import mail_username, mail_password
+from serpapi.google_search import GoogleSearch
+
 import os
 import json
 import requests
@@ -18,8 +18,8 @@ def execute_nyt():
     nytimes function returns top article
     '''
 
-    load_api_keys()
-    requestUrl = f"https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={os.getenv('NYT_API_KEY')}"
+    #load_api_keys()
+    requestUrl = f"https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key={os.getenv.get('NYT_API_KEY')}"
     requestHeaders = {
     "Accept": "application/json"
   }
@@ -40,12 +40,12 @@ def execute_google_news():
     TODO: right now 'hamas' is hardcoded as the user query.
     Find a way to dynamically allow user to query
     '''
-    load_api_keys()
+    #load_api_keys()
     params = {
     "q": "hamas",
     "hl": "en",
     "gl": "us",
-    "api_key":  os.getenv("SERPAPI_API_KEY")
+    "api_key":  os.getenv.get("SERPAPI_API_KEY")
     }
 
     search = GoogleSearch(params)
@@ -62,8 +62,8 @@ app.config["MAIL_SERVER"] = "smtp.office365.com"
 app.config["MAIL_PORT"] = 587
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
-app.config["MAIL_USERNAME"] = mail_username
-app.config["MAIL_PASSWORD"] = mail_password
+app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD")
 mail = Mail(app)
 
 
